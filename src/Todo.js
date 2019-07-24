@@ -4,17 +4,17 @@ import TodoButtons from './TodoButtons';
 
 class Todo extends Component {
   renderText = () => {
-    const { children } = this.props;
-    if (!children) return null;
+    const { text } = this.props;
+    if (!text) return null;
     return (
-      <p className="card-text">
-        {children}
-      </p>
+      <div className="card-text">
+        {text}
+      </div>
     )
   };
 
   render() {
-    const { createdAt, title, finished } = this.props;
+    const { createdAt, title, finished } = this.props.todo;
     let classes = 'card';
     if (finished) classes += ' border-success';
 
@@ -29,7 +29,7 @@ class Todo extends Component {
               Created at {createdAt}
             </h6>
             {this.renderText()}
-            <TodoButtons todo={this.props} />
+            <TodoButtons todo={this.props.todo} />
           </div>
         </div>
       </div>
