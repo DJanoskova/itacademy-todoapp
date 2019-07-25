@@ -47,7 +47,7 @@ class App extends Component {
         <hr />
         {todos.map(todoData => {
           return (
-            <Todo todo={todoData} />
+            <Todo todo={todoData} key={todoData.id} />
           )
         })}
       </div>
