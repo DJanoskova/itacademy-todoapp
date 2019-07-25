@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import axios from 'axios';
+import axios from './axios';
 
 import Todo from './Todo';
 import AddTodo from './AddTodo';
@@ -11,7 +11,7 @@ class App extends Component {
   }
 
   async componentDidMount () {
-    const todos = await axios.get('https://todo-app-course.firebaseio.com/todos.json')
+    const todos = await axios.get('/todos.json')
     const result = [];
 
     if (todos.data) Object.keys(todos.data).forEach(key => {
@@ -25,18 +25,21 @@ class App extends Component {
     })
   }
 
-  addTodo = todo => {
+  addTodo = async todo => {
     const newTodo = {
       ...todo,
       finished: false,
       createdAt: moment().format('DD.MM.YYYY')
     }
+    // @TODO consistent with presentation
+    const result = await axios.post('/todos.json', newTodo);
+    newTodo.id = result.data.name;
+
     this.setState(prevState => {
       return {
         todos: prevState.todos.concat(newTodo)
       }
     })
-    axios.post('https://todo-app-course.firebaseio.com/todos.json', newTodo);
   }
 
   render () {
