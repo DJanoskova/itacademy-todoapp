@@ -4,12 +4,11 @@ import TodoButtons from './TodoButtons';
 
 class Todo extends Component {
   renderText = () => {
-    const { text } = this.props;
+    const { text } = this.props.todo;
     if (!text) return null;
+
     return (
-      <div className="card-text">
-        {text}
-      </div>
+      <div className="card-text" dangerouslySetInnerHTML={{ __html: text }} />
     )
   };
 
