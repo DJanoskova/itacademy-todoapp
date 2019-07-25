@@ -42,15 +42,28 @@ class App extends Component {
     })
   }
 
+  editTodo = (todo,index) => {
+    const todos = [...this.state.todos];
+    todos.splice(index, 1, todo);
+    this.setState({
+      todos: todos
+    })
+  }
+
   render () {
     const todos = this.state.todos;
     return (
       <div className="App p-3">
         <AddTodo onAdd={this.addTodo} />
         <hr />
-        {todos.map(todoData => {
+        {todos.map((todoData, index) => {
+          const handleFinishTodo = () => {
+            todoData.finished = true;
+            this.editTodo(todoData, index);
+          }
+
           return (
-            <Todo todo={todoData} key={todoData.id} />
+            <Todo todo={todoData} key={todoData.id} onFinish={handleFinishTodo} />
           )
         })}
       </div>

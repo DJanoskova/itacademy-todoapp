@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from './axios';
 
 import TodoButtons from './TodoButtons';
 
@@ -11,6 +12,13 @@ class Todo extends Component {
       <div className="card-text" dangerouslySetInnerHTML={{ __html: text }} />
     )
   };
+
+  handleFinish = async () => {
+    await axios.patch('/todos/' + this.props.todo.id + '.json', {
+      finished: true
+    })
+    this.props.onFinish();
+  }
 
   render() {
     const { createdAt, title, finished } = this.props.todo;
@@ -28,7 +36,7 @@ class Todo extends Component {
               Created at {createdAt}
             </h6>
             {this.renderText()}
-            <TodoButtons todo={this.props.todo} />
+            <TodoButtons todo={this.props.todo} onFinish={this.handleFinish} />
           </div>
         </div>
       </div>
