@@ -14,7 +14,7 @@ class TodoButtons extends Component {
 
     return (
       <>
-        <button type="button" className="btn btn-light">
+        <button type="button" className="btn btn-light" onClick={this.props.onRemove}>
           Zmazať
         </button>
         {finishButton}

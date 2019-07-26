@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import axios from './axios';
+
+import axios from '../axios';
 
 import TodoButtons from './TodoButtons';
 
@@ -16,8 +17,13 @@ class Todo extends Component {
   handleFinish = async () => {
     await axios.patch('/todos/' + this.props.todo.id + '.json', {
       finished: true
-    })
+    });
     this.props.onFinish();
+  }
+
+  handleRemove = async () => {
+    await axios.delete('/todos/' + this.props.todo.id + '.json');
+    this.props.onRemove();
   }
 
   render() {
@@ -36,7 +42,7 @@ class Todo extends Component {
               Created at {createdAt}
             </h6>
             {this.renderText()}
-            <TodoButtons todo={this.props.todo} onFinish={this.handleFinish} />
+            <TodoButtons todo={this.props.todo} onFinish={this.handleFinish} onRemove={this.handleRemove} />
           </div>
         </div>
       </div>
